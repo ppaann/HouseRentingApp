@@ -21,7 +21,8 @@ const Index = () => {
     <div className="index">
       <Swiper
         loop={true}
-      >{items}</Swiper>
+      >
+        {items}</Swiper>
     </div>
   )
 }
