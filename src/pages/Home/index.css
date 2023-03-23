@@ -1,0 +1,18 @@
+.bottom .iconfont {
+  font-size: 20px;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.body {
+  flex: 1;
+}
+
+.bottom {
+  flex: 0;
+  border-top: solid 1px var(--adm-color-border);
+}
