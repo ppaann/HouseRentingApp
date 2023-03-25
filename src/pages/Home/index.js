@@ -1,15 +1,10 @@
 import React from 'react'
 import {
-  Route,
   useNavigate,
   useLocation,
-  Routes,
+  Outlet
 } from "react-router-dom";
 
-import News from '../News';
-import HouseList from '../HouseList'
-import Index from '../Index';
-import Profile from '../Profile';
 
 import { TabBar } from "antd-mobile"
 import "./index.css"
@@ -25,22 +20,22 @@ const Home = () => {
 
   const tabs = [
     {
-      key: '/',
+      key: '/home',
       title: '首页',
       icon: <i className="iconfont icon-ind" />,
     },
     {
-      key: '/list',
+      key: '/home/list',
       title: '找房',
       icon: <i className="iconfont icon-findHouse" />,
     },
     {
-      key: '/news',
+      key: '/home/news',
       title: '咨询',
       icon: <i className="iconfont icon-message" />,
     },
     {
-      key: '/profile',
+      key: '/home/profile',
       title: '我的',
       icon: <i className="iconfont icon-my" />,
     },
@@ -50,13 +45,8 @@ const Home = () => {
   return (
     <div className="app">
       <div className='body'>
-        <Routes>
-          <Route path='' element={<Index />} />
-          <Route path='list' element={<HouseList />} />
-          <Route path='news' element={<News />} />
-          <Route path='profile' element={< Profile />} />
 
-        </Routes>
+        <Outlet />
 
       </div>
       <div className="bottom">

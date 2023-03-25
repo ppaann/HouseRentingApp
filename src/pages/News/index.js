@@ -1,9 +1,17 @@
 import React from 'react'
 
-const News = () => {
-  return (
-    <div>News</div>
-  )
+export default class Index extends React.Component {
+
+  componentDidMount() {
+    console.log(this)
+    // this.getSwipers()
+  }
+  render() {
+    return (
+      <>
+        News
+      </>
+    )
+  }
 }
 
-export default News

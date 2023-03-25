@@ -1,18 +1,26 @@
 
 import React from "react";
 
-import ReactDOM from "react-dom/client"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
 import CityList from "./pages/CityList";
+import News from './pages/News';
+import HouseList from './pages/HouseList'
+import Index from './pages/Index';
+import Profile from './pages/Profile';
+
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-
-        <Route path="*" element={<Home />} >
+        <Route index element={<Navigate replace to="/home" />} />
+        <Route path="/home/*" element={<Home />} >
+          <Route path='' element={<Index />} />
+          <Route path='list' element={<HouseList />} />
+          <Route path='news' element={<News />} />
+          <Route path='profile' element={< Profile />} />
         </Route>
 
         <Route path="/citylist" element={<CityList />} />
@@ -21,5 +29,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);

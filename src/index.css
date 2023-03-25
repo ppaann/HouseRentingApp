@@ -14,3 +14,9 @@ body {
 :root:root {
   --adm-color-primary: #21b97a;
 }
+
+h2,
+h3,
+p {
+  margin: 0;
+}
