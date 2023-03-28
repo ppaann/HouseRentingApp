@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-import { Swiper, Grid } from 'antd-mobile'
+import { Swiper, Grid, Divider, SearchBar } from 'antd-mobile'
 import axios from 'axios'
 
 import Nav1 from '../../assets/images/nav-1.png'
@@ -53,8 +53,23 @@ function NavigateItem(props) {
       <h2>{data.title}</h2>
     </Grid.Item>
   )
-
 }
+function CityListButton() {
+
+  const navigate = useNavigate();
+  const naviToCityList = () => {
+    return navigate("/citylist")
+  }
+
+
+  return (
+    <div className="location" onClick={naviToCityList}>
+      <span className="name">上海</span>
+      <i className='iconfont icon-arrow' />
+    </div>
+  )
+}
+
 
 /* use class for now, later shall be replaced by useEffect 
 */
@@ -64,7 +79,8 @@ export default class Index extends React.Component {
   state = {
     swipers: [],
     isSwiperLoaded: false,
-    group: []
+    group: [],
+    news: []
   }
 
   async getSwipers() {
@@ -85,9 +101,21 @@ export default class Index extends React.Component {
     })
   }
 
+  async getNews() {
+    const res = await axios.get('http://localhost:8080/home/news', {
+      params: {
+        area: 'AREA%7C88cff55c-aaa4-e2e0'
+      }
+    })
+    this.setState({
+      news: res.data.body
+    })
+  }
+
   componentDidMount() {
     this.getSwipers()
     this.getGroups()
+    this.getNews()
   }
 
   renderSwiperItems() {
@@ -106,6 +134,8 @@ export default class Index extends React.Component {
     )
   }
 
+  renderNews() {
+  }
 
 
   render() {
@@ -118,6 +148,14 @@ export default class Index extends React.Component {
                 {this.renderSwiperItems()}
               </Swiper> : ''
           }
+
+          <div className='search-box'>
+            <div className="search">
+              <CityListButton />
+              <SearchBar placeholder='请输入内容' />
+            </div>
+            <i className="iconfont icon-map" />
+          </div>
         </div>
 
 
@@ -145,6 +183,31 @@ export default class Index extends React.Component {
                 </div>
               </Grid.Item>
             )}
+          </Grid>
+        </div>
+
+        <div className="news">
+          <h3 className="title">最新资讯</h3>
+
+          <Grid className="news-grid" columns={1}>
+            {this.state.news.map(item =>
+              <><Grid.Item key={item.id}>
+                <img src={`http://localhost:8080${item.imgSrc}`} alt="" />
+                <div className="desc">
+                  <div className='title'>
+                    {item.title}
+                  </div>
+                  <div className="info">
+                    <div className='from'>{item.from}</div>
+                    <div className='data'>{item.date}</div>
+                  </div>
+                </div>
+              </Grid.Item>
+
+                <Divider />
+              </>)
+            }
+
           </Grid>
         </div>
       </div>
