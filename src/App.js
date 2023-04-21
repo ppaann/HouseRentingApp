@@ -9,6 +9,7 @@ import News from './pages/News';
 import HouseList from './pages/HouseList'
 import Index from './pages/Index';
 import Profile from './pages/Profile';
+import Map from './pages/Map';
 
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         </Route>
 
         <Route path="/citylist" element={<CityList />} />
+        <Route path="/map" element={<Map />} />
 
       </Routes>
     </BrowserRouter>

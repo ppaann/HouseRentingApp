@@ -17,6 +17,19 @@ body {
 
 h2,
 h3,
-p {
+p,
+ul {
   margin: 0;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
 }

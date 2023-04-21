@@ -11,6 +11,8 @@ import Nav4 from '../../assets/images/nav-4.png'
 
 import "./index.scss"
 
+import { getCurrentCity } from "../../utils"
+
 const navs = [
   {
     id: 1,
@@ -38,8 +40,6 @@ const navs = [
   }
 ]
 
-
-
 function NavigateItem(props) {
   const navigate = useNavigate();
   let data = props.item
@@ -54,23 +54,33 @@ function NavigateItem(props) {
     </Grid.Item>
   )
 }
-function CityListButton() {
 
+function CityListButton(props) {
   const navigate = useNavigate();
   const naviToCityList = () => {
     return navigate("/citylist")
   }
-
-
   return (
     <div className="location" onClick={naviToCityList}>
-      <span className="name">上海</span>
+      <span className="name">{props.label}</span>
       <i className='iconfont icon-arrow' />
     </div>
   )
 }
+function MapButton() {
+  const navigate = useNavigate();
+  return (
+    <i className="iconfont icon-map" onClick={() => navigate('/map')} />
+  )
+}
+function SearchComponent() {
+  const navigate = useNavigate();
+  return (
 
+    <SearchBar placeholder='请输入内容' onClick={() => navigate('/search')} />
 
+  )
+}
 /* use class for now, later shall be replaced by useEffect 
 */
 
@@ -80,7 +90,8 @@ export default class Index extends React.Component {
     swipers: [],
     isSwiperLoaded: false,
     group: [],
-    news: []
+    news: [],
+    curCityName: ''
   }
 
   async getSwipers() {
@@ -100,7 +111,6 @@ export default class Index extends React.Component {
       group: res.data.body
     })
   }
-
   async getNews() {
     const res = await axios.get('http://localhost:8080/home/news', {
       params: {
@@ -112,10 +122,15 @@ export default class Index extends React.Component {
     })
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getSwipers()
     this.getGroups()
     this.getNews()
+
+    const curCity = await getCurrentCity();
+    this.setState({
+      curCityName: curCity.label
+    })
   }
 
   renderSwiperItems() {
@@ -151,15 +166,15 @@ export default class Index extends React.Component {
 
           <div className='search-box'>
             <div className="search">
-              <CityListButton />
-              <SearchBar placeholder='请输入内容' />
+              <CityListButton label={this.state.curCityName} />
+              <SearchComponent />
             </div>
-            <i className="iconfont icon-map" />
+            <MapButton />
           </div>
         </div>
 
 
-        <Grid className="nav" columns={4}>
+        <Grid key='nav' className="nav" columns={4}>
           {this.renderNavs()}
         </Grid>
 
@@ -168,7 +183,7 @@ export default class Index extends React.Component {
           <h3 className='title'>
             租房小组 <span className='more'>更多</span>
           </h3>
-          <Grid className='groupGrid' columns={2}>
+          <Grid key='groupGrid' className='groupGrid' columns={2}>
             {this.state.group.map((item) =>
               <Grid.Item key={item.id}>
                 <div className='group-item'>
@@ -189,7 +204,7 @@ export default class Index extends React.Component {
         <div className="news">
           <h3 className="title">最新资讯</h3>
 
-          <Grid className="news-grid" columns={1}>
+          <Grid key='newGrid' className="news-grid" columns={1}>
             {this.state.news.map(item =>
               <><Grid.Item key={item.id}>
                 <img src={`http://localhost:8080${item.imgSrc}`} alt="" />
