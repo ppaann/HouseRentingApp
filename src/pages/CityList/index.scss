@@ -1,18 +1,10 @@
-.adm-nav-bar {
-  background-color: #f5f6f5;
-  margin-top: -45px;
-  position: fixed;
-  width: 100%;
-
-  .adm-nav-bar-back-arrow {
-    font-size: 100%;
-    color: #333
-  }
-}
-
 .city-list {
   height: 100%;
   padding-top: 45px;
+
+  .adm-nav-bar {
+    margin-top: -45px;
+  }
 }
 
 .city {

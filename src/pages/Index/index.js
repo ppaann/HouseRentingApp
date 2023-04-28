@@ -206,21 +206,23 @@ export default class Index extends React.Component {
 
           <Grid key='newGrid' className="news-grid" columns={1}>
             {this.state.news.map(item =>
-              <><Grid.Item key={item.id}>
-                <img src={`http://localhost:8080${item.imgSrc}`} alt="" />
-                <div className="desc">
-                  <div className='title'>
-                    {item.title}
+              <div key={item.id}>
+                <Grid.Item>
+                  <img src={`http://localhost:8080${item.imgSrc}`} alt="" />
+                  <div className="desc">
+                    <div className='title'>
+                      {item.title}
+                    </div>
+                    <div className="info">
+                      <div className='from'>{item.from}</div>
+                      <div className='data'>{item.date}</div>
+                    </div>
                   </div>
-                  <div className="info">
-                    <div className='from'>{item.from}</div>
-                    <div className='data'>{item.date}</div>
-                  </div>
-                </div>
-              </Grid.Item>
-
+                </Grid.Item>
                 <Divider />
-              </>)
+
+              </div>
+            )
             }
 
           </Grid>

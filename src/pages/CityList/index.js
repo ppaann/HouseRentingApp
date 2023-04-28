@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { NavBar, Toast } from "antd-mobile"
+import { Toast } from "antd-mobile"
 import "./index.scss"
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 import { AutoSizer, List } from 'react-virtualized'
 
 import { getCurrentCity } from "../../utils"
+import NavHeader from "../../components/NavHeaders";
 
 const TITLE_HEIGHT = 50;
 const HOUSE_CITY = ['北京', '上海', '广州', '深圳']
@@ -135,7 +136,6 @@ const CityList = () => {
   }
 
   const onRowsRendered = ({ startIndex }) => {
-    console.log('startIndex', startIndex)
     if (startIndex !== activeIndex) {
       setActiveIndex(startIndex);
     }
@@ -144,7 +144,7 @@ const CityList = () => {
 
   return (
     <div className='city-list'>
-      <NavBar onBack={back}>城市选择</NavBar>
+      <NavHeader>城市找房</NavHeader>
       <AutoSizer>
         {({ height, width }) => (
           <List
