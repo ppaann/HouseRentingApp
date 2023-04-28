@@ -1,0 +1,10 @@
+.navBar {
+  background-color: #f5f6f5;
+  position: fixed;
+  width: 100%;
+}
+
+:global(.adm-nav-bar-back-arrow) {
+  font-size: 100%;
+  color: #333
+}
